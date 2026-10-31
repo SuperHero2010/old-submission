@@ -18,6 +18,10 @@ with wikidot.Client(username=USERNAME, password=PASSWORD) as client:
 
     for page in pages:
         try:
+            if page.fullname == 'submission:_template':
+                print(f"Skipping template page: {page.fullname}")
+                continue
+
             if page.created_at < one_day_ago:
                 print(f"Deleting old submission: {page.fullname} (Created: {page.created_at})")
                 page.destroy()
