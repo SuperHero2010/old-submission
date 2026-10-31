@@ -18,14 +18,12 @@ with wikidot.Client(username=USERNAME, password=PASSWORD) as client:
 
     for page in pages:
         try:
-            created_at = datetime.strptime(page.created_at, '%d %b %Y, %H:%M')
-
-            if created_at < one_day_ago:
+            if page.created_at < one_day_ago:
                 print(f"Deleting old submission: {page.fullname} (Created: {page.created_at})")
                 page.destroy()
             else:
                 print(f"Skipping recent submission: {page.fullname} (Created: {page.created_at})")
         except Exception as e:
-            print(f"Error parsing date for {page.fullname}: {e}")
+            print(f"Error processing {page.fullname}: {e}")
 
 print("Done.")
