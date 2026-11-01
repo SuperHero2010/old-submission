@@ -1,0 +1,27 @@
+name: Lock Level Pages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  lock-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install wikidot
+
+      - name: Run locking script
+        env:
+          WIKIDOT_USERNAME: ${{ secrets.WIKIDOT_USERNAME }}
+          WIKIDOT_PASSWORD: ${{ secrets.WIKIDOT_PASSWORD }}
+        run: |
+          python lock_level_pages.py
