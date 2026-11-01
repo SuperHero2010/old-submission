@@ -1,8 +1,6 @@
 name: Delete Old Submissions
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -26,4 +24,4 @@ jobs:
           WIKIDOT_USERNAME: ${{ secrets.WIKIDOT_USERNAME }}
           WIKIDOT_PASSWORD: ${{ secrets.WIKIDOT_PASSWORD }}
         run: |
-          python delete_old_submissions.py
+          python scripts/delete_old_submissions.py
