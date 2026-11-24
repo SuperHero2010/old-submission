@@ -1,20 +1,27 @@
+import os
 import wikidot
 
-client = wikidot.Client()
-site = client.site.get("outrooms-wiki")
+USERNAME = os.environ.get("WIKIDOT_USERNAME")
+PASSWORD = os.environ.get("WIKIDOT_PASSWORD")
 
-all_pages = site.pages.search()
+if not USERNAME or not PASSWORD:
+    raise Exception("Missing Wikidot credentials in environment variables.")
 
-keyword = "Colossal Machine"
-matches = []
+with wikidot.Client(username=USERNAME, password=PASSWORD) as client:
+    site = client.site.get("outrooms-wiki")
 
-for page in all_pages:
-    try:
-        source_text = page.source.wiki_text
-        if keyword.lower() in source_text.lower():
-            matches.append(page.fullname)
-            print(f"Found in: {page.fullname} ({page.url})")
-    except Exception as e:
-        print(f"Error on {page.fullname}: {e}")
+    all_pages = site.pages.search()
 
-print(f"\nTotal pages referencing '{keyword}': {len(matches)}")
+    keyword = "Colossal Machine"
+    matches = []
+
+    for page in all_pages:
+        try:
+            source_text = page.source.wiki_text
+            if keyword.lower() in source_text.lower():
+                matches.append(page.fullname)
+                print(f"FOUND: {page.fullname} ({page.url})")
+        except Exception as e:
+            print(f"Error on {page.fullname}: {e}")
+
+    print(f"\nTotal pages referencing '{keyword}': {len(matches)}")
