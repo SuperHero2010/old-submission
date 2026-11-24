@@ -12,7 +12,7 @@ with wikidot.Client(username=USERNAME, password=PASSWORD) as client:
 
     all_pages = site.pages.search()
 
-    keyword = "Colossal Machine"
+    keyword = "Level 10000"
     matches = []
 
     for page in all_pages:
