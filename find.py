@@ -20,7 +20,7 @@ with wikidot.Client(username=USERNAME, password=PASSWORD) as client:
             source_text = page.source.wiki_text
             if keyword.lower() in source_text.lower():
                 matches.append(page.fullname)
-                print(f"FOUND: {page.fullname} ({page.url})")
+                print(f"FOUND: {page.fullname}")
         except Exception as e:
             print(f"Error on {page.fullname}: {e}")
 
